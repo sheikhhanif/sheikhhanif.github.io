@@ -1,0 +1,953 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Analyzing Geo-data Using Folium - Sheikh Hanif</title>
+<meta name="description" content="The goals of this project are : - Gather data specially [geo_location] of Malaysia public universities. - Use pandas to store data - Wrangling collected data - Doing Exploratory data analysis - Applying Folium to create the map and visualize it">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Analyzing Geo-data Using Folium">
+<meta property="og:url" content="http://localhost:4000/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/">
+
+
+  <meta property="og:description" content="The goals of this project are : - Gather data specially [geo_location] of Malaysia public universities. - Use pandas to store data - Wrangling collected data - Doing Exploratory data analysis - Applying Folium to create the map and visualize it">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/folium/map.PNG">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-02-03T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Analyzing Geo-data Using Folium">
+    <meta itemprop="description" content="The goals of this project are : - Gather data specially [geo_location] of Malaysia public universities. - Use pandas to store data - Wrangling collected data - Doing Exploratory data analysis - Applying Folium to create the map and visualize it">
+    <meta itemprop="datePublished" content="February 03, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Analyzing Geo-data Using Folium
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h3 id="introduction">Introduction</h3>
+<p>Python has large ecosystem which has made it unique to work for software development and data analysis. It has enormous packages
+to build almost anything. One of them is called ‘folium’.</p>
+
+<p>According to the documentation, Folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the Leaflet.js library. Manipulate data in Python, then visualize it in on a Leaflet map via Folium.</p>
+
+<p>Folium makes it easy to visualize data that’s been manipulated in Python on an interactive Leaflet map. It enables both the binding of data to a map for choropleth visualizations as well as passing Vincent/Vega visualizations as markers on the map.</p>
+
+<p>The library has a number of built-in tilesets from OpenStreetMap, MapQuest Open, MapQuest Open Aerial, Mapbox, and Stamen, and supports custom tilesets with Mapbox or Cloudmade API keys. Folium supports both GeoJSON and TopoJSON overlays, as well as the binding of data to those overlays to create choropleth maps with color-brewer color schemes.</p>
+
+<h3 id="project-objective">Project objective</h3>
+<p>The goals of this project are :</p>
+<ul>
+  <li>Gather data specially [geo_location] of Malaysia public universities.</li>
+  <li>Use pandas to store data</li>
+  <li>Wrangling collected data</li>
+  <li>Doing Exploratory data analysis</li>
+  <li>Applying Folium to create the map and visualize it</li>
+</ul>
+
+<h3 id="gathering-data">Gathering data</h3>
+<p>Unfortunately, the geo-data of Malaysia Public Universities is not available in the internet. I search in the google dataset.
+Couldn’t find. So, I have done some web scrapping and collected the data I need.</p>
+
+<p>Below is the dataset I have collected and put it in a Python list. As you can see it’s a list of tuples. Each tuple contains id, university_name,
+date of establishment, state, latitude and longitude.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">public_university_malaysia</span> <span class="o">=</span> <span class="p">[</span>
+    
+    <span class="p">(</span><span class="s">'UM'</span><span class="p">,</span> <span class="s">'Universiti Malaya'</span><span class="p">,</span> <span class="s">'1-1-1962'</span><span class="p">,</span> <span class="s">'Kuala Lumpur'</span><span class="p">,</span> <span class="mf">3.120101</span><span class="p">,</span> <span class="mf">101.654396</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'USM'</span><span class="p">,</span> <span class="s">'Universiti Sains Malaysia '</span><span class="p">,</span> <span class="s">'1969'</span><span class="p">,</span> <span class="s">'Penang'</span><span class="p">,</span> <span class="mf">5.355870</span><span class="p">,</span> <span class="mf">100.296188</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UKM'</span><span class="p">,</span> <span class="s">'Universiti Kebangsaan Malaysia'</span><span class="p">,</span> <span class="s">'18-5-1970'</span><span class="p">,</span> <span class="s">'Selangor'</span><span class="p">,</span> <span class="mf">2.930430</span><span class="p">,</span><span class="mf">101.777328</span> <span class="p">),</span>
+    <span class="p">(</span><span class="s">'UPM'</span><span class="p">,</span> <span class="s">'Universiti Putra Malaysia'</span><span class="p">,</span> <span class="s">'4-10-1971'</span><span class="p">,</span> <span class="s">'Selangor'</span><span class="p">,</span> <span class="mf">3.010720</span><span class="p">,</span> <span class="mf">101.720909</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UTM'</span><span class="p">,</span> <span class="s">'Universiti Teknologi Malaysia'</span><span class="p">,</span> <span class="s">'1-4-1975'</span><span class="p">,</span> <span class="s">'Johor'</span><span class="p">,</span> <span class="mf">1.559580</span><span class="p">,</span> <span class="mf">103.637489</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UiTM'</span><span class="p">,</span> <span class="s">'Universiti Teknologi MARA'</span><span class="p">,</span> <span class="s">'26-8-1999'</span><span class="p">,</span> <span class="s">'Selangor'</span><span class="p">,</span> <span class="mf">3.0676</span><span class="p">,</span> <span class="mf">101.4992</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UIAM'</span><span class="p">,</span> <span class="s">'Universiti Islam Antarabangsa Malaysia'</span><span class="p">,</span> <span class="s">'10-5-1983'</span><span class="p">,</span> <span class="s">'Selangor'</span><span class="p">,</span> <span class="mf">3.248900</span><span class="p">,</span><span class="mf">101.777328</span> <span class="p">),</span>
+    <span class="p">(</span><span class="s">'UUM'</span><span class="p">,</span> <span class="s">'Universiti Utara Malaysia'</span><span class="p">,</span> <span class="s">'16-2-1984'</span><span class="p">,</span> <span class="s">'Kedah'</span><span class="p">,</span> <span class="mf">6.457510</span><span class="p">,</span> <span class="mf">100.505432</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UNIMAS'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Sarawak'</span><span class="p">,</span> <span class="s">'24-12-1992'</span><span class="p">,</span> <span class="s">'Sarawak'</span><span class="p">,</span> <span class="mf">1.464922</span><span class="p">,</span> <span class="mf">110.426855</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UMS'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Sabah'</span><span class="p">,</span> <span class="s">'24-11-1994'</span><span class="p">,</span> <span class="s">'Sabah'</span><span class="p">,</span> <span class="mf">6.042670</span><span class="p">,</span> <span class="mf">116.147560</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UPSI'</span><span class="p">,</span> <span class="s">'Universiti Pendidikan Sultan Idris'</span><span class="p">,</span> <span class="s">'24-2-1997'</span><span class="p">,</span> <span class="s">'Perak'</span><span class="p">,</span> <span class="mf">3.685048</span><span class="p">,</span> <span class="mf">101.524094</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'USIM'</span><span class="p">,</span> <span class="s">'Universiti Sains Islam Malaysia'</span><span class="p">,</span> <span class="s">'13-3-1998'</span><span class="p">,</span> <span class="s">'Negeri Sembilan'</span><span class="p">,</span> <span class="mf">2.844204</span><span class="p">,</span> <span class="mf">101.781890</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UMT'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Terengganu'</span><span class="p">,</span> <span class="s">'15-7-1999'</span><span class="p">,</span> <span class="s">'Terengganu'</span><span class="p">,</span> <span class="mf">5.408712</span><span class="p">,</span> <span class="mf">103.088813</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UTHM'</span><span class="p">,</span> <span class="s">'Universiti Tun Hussein Onn Malaysia'</span><span class="p">,</span> <span class="s">'30-9-2000'</span><span class="p">,</span> <span class="s">'Johor'</span><span class="p">,</span> <span class="mf">1.858626</span><span class="p">,</span> <span class="mf">103.085578</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UTeM'</span><span class="p">,</span> <span class="s">'Universiti Teknikal Malaysia Melaka'</span><span class="p">,</span> <span class="s">'1-12-2000'</span><span class="p">,</span> <span class="s">'Melaka'</span><span class="p">,</span> <span class="mf">2.306000</span><span class="p">,</span> <span class="mf">102.317871</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UMP'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Pahang'</span><span class="p">,</span> <span class="s">'16-2-2002'</span><span class="p">,</span> <span class="s">'Pahang'</span><span class="p">,</span> <span class="mf">3.543702</span><span class="p">,</span> <span class="mf">103.428906</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UniMAP'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Perlis'</span><span class="p">,</span> <span class="s">'2-5-2002'</span><span class="p">,</span> <span class="s">'Perlis'</span><span class="p">,</span> <span class="mf">6.411160</span><span class="p">,</span> <span class="mf">100.135600</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UniSZA'</span><span class="p">,</span> <span class="s">'Universiti Sultan Zainal Abidin'</span><span class="p">,</span> <span class="s">'1-1-2006'</span><span class="p">,</span> <span class="s">'Terengganu'</span><span class="p">,</span> <span class="mf">5.395676</span><span class="p">,</span> <span class="mf">103.082795</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UMK'</span><span class="p">,</span> <span class="s">'Universiti Malaysia Kelantan'</span><span class="p">,</span> <span class="s">'14-6-2006'</span><span class="p">,</span> <span class="s">'Kelantan'</span><span class="p">,</span> <span class="mf">6.164291</span><span class="p">,</span> <span class="mf">102.283956</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'UPNM'</span><span class="p">,</span> <span class="s">'Universiti Pertahanan Nasional Malaysia'</span><span class="p">,</span> <span class="s">'10-11-2006'</span><span class="p">,</span> <span class="s">'Kuala Lumpur'</span><span class="p">,</span> <span class="mf">3.050463</span><span class="p">,</span> <span class="mf">101.724833</span><span class="p">),</span>
+
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>I will be using pandas, pyplot for EDA (exploratory data analysis) and data wrangling. Finally, I will visualize it using folium which is my
+ultimate goal for this project. I am importing the modules I need as follows.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">folium</span>
+</code></pre></div></div>
+
+<p>In order to analyze our data with pandas I need to convert our list data into pandas dataframe. It can be done by using pandas DataFrame()
+function. Below I am passing columns name and our list I created earlier inside of this this function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">columns_name</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Id'</span><span class="p">,</span> <span class="s">'University_Name'</span><span class="p">,</span> <span class="s">'Date_Established'</span><span class="p">,</span> <span class="s">'State'</span><span class="p">,</span> <span class="s">'Latitude'</span><span class="p">,</span> <span class="s">'Longitude'</span> <span class="p">]</span>
+<span class="n">df_public_university_malaysia</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">public_university_malaysia</span><span class="p">,</span>
+                      <span class="n">columns</span><span class="o">=</span><span class="n">columns_name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="wrangling">Wrangling</h3>
+<p>Now that our dataset has been created properly. I can have a look into it by using pandas head() method. Also I am trying to 
+determine any missing value within the dataset. Even if the dataset is small but I need to make sure all data is present in order to
+visualize it with folium and to avaoid unexpected output.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>University_Name</th>
+      <th>Date_Established</th>
+      <th>State</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>UM</td>
+      <td>Universiti Malaya</td>
+      <td>1-1-1962</td>
+      <td>Kuala Lumpur</td>
+      <td>3.120101</td>
+      <td>101.654396</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>USM</td>
+      <td>Universiti Sains Malaysia</td>
+      <td>1969</td>
+      <td>Penang</td>
+      <td>5.355870</td>
+      <td>100.296188</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>UKM</td>
+      <td>Universiti Kebangsaan Malaysia</td>
+      <td>18-5-1970</td>
+      <td>Selangor</td>
+      <td>2.930430</td>
+      <td>101.777328</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>UPM</td>
+      <td>Universiti Putra Malaysia</td>
+      <td>4-10-1971</td>
+      <td>Selangor</td>
+      <td>3.010720</td>
+      <td>101.720909</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>UTM</td>
+      <td>Universiti Teknologi Malaysia</td>
+      <td>1-4-1975</td>
+      <td>Johor</td>
+      <td>1.559580</td>
+      <td>103.637489</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Id                  0
+University_Name     0
+Date_Established    0
+State               0
+Latitude            0
+Longitude           0
+dtype: int64
+</code></pre></div></div>
+
+<p>Now I am confirmed that our dataset has no missing value in it. I will proceed to next step which is EDA. In that step I will
+try to find any pattern and insightful info of our data.</p>
+
+<h3 id="eda">EDA</h3>
+<p>Our dataset is small and has only two columns which contain numerical values. Let’s see what can be found. 
+Below I am scattering latitude (as x axis) and longitude (as y axis).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Malaysia Public University"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Latitude"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Longitude"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="n">Latitude</span><span class="p">,</span> <span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="n">Longitude</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/folium/output_14_0.png" alt="png" /></p>
+
+<p>The scatter plot indicate that within latitude: 3 and longitude: 102 and so, few universities are in that region. That
+means there is a certain state where more public universities are available than other states. Let’s find it out by using pandas
+groupby() and counts() methods.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'State'</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">University_Name</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>State
+Johor              2
+Kedah              1
+Kelantan           1
+Kuala Lumpur       2
+Melaka             1
+Negeri Sembilan    1
+Pahang             1
+Penang             1
+Perak              1
+Perlis             1
+Sabah              1
+Sarawak            1
+Selangor           4
+Terengganu         2
+Name: University_Name, dtype: int64
+</code></pre></div></div>
+
+<p>Ok that is interesting. We can see that Selangor state has 4 public universities. The reason can be, in that state population is
+high and so on. Anyways, this is not my concern for this project. I am moving to my final state of this project.</p>
+
+<h3 id="using-folium">Using folium</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># creating the map</span>
+<span class="n">uni_map</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="mf">1.559580</span><span class="p">,</span> <span class="mf">103.637489</span><span class="p">],</span> <span class="n">zoom_start</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">df_public_university_malaysia</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">pu</span><span class="p">:</span><span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="n">pu</span><span class="p">[</span><span class="s">"Latitude"</span><span class="p">],</span> <span class="n">pu</span><span class="p">[</span><span class="s">"Longitude"</span><span class="p">]],</span> 
+                                               <span class="n">popup</span> <span class="o">=</span> <span class="n">pu</span><span class="p">[</span><span class="s">"University_Name"</span><span class="p">])</span>
+                                             <span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">uni_map</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c"># display th map</span>
+<span class="n">uni_map</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/folium/map.PNG" alt="png" /></p>
+
+<p>The map is pretty much beautiful. Isn’t it? Among them one of it is my own university.</p>
+
+<p>That’s all for this project. You can find this repository here : <a href="https://github.com/sheikhhanif/Malaysia-public-uni-data-analysis.git">link</a>
+I keep the project and dataset open source (MIT license). So that anyone can use and enrich the dataset for further
+analysis.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#datascience" class="page__taxonomy-item" rel="tag">datascience</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#folium" class="page__taxonomy-item" rel="tag">folium</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#project" class="page__taxonomy-item" rel="tag">project</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-02-03T00:00:00+08:00">February 03, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Analyzing+Geo-data+Using+Folium%20http%3A%2F%2Flocalhost%3A4000%2FVisualizing-Malaysia-Public-University-Geo-data-Using-Folium%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FVisualizing-Malaysia-Public-University-Geo-data-Using-Folium%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FVisualizing-Malaysia-Public-University-Geo-data-Using-Folium%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FVisualizing-Malaysia-Public-University-Geo-data-Using-Folium%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Python-Data-Science-Basic/" class="pagination--pager" title="Python for Data Science - Part 1
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/elasticnet/output_14_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Scikit-Learn-Linear-Model-Elasticnet/" rel="permalink">Building Scikit-Learn Linear Model: Elasticnet
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this notebook we will learn how to use scikit learn to build best linear regressor model. We used gapminder dataset which is related to population in diff...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/logisticr/output_50_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Logistic-Regression-with-a-Neural-Network-Mindset/" rel="permalink">Logistic Regression with a Neural Network Mindset
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  27 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This post demonstrates how to classify images using logistic regression from scratch. We will learn to:** - Build the general architecture of a learning algo...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/regression/output_23_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Linear-Regression-from-Scratch/" rel="permalink">Linear Regression from Scratch
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this post I have demonstrated how to generate data and build single linear regression as well as multiple linear regression model by using numpy, pyplot, ...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/pyplot/output_14_0.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Pyplot/" rel="permalink">Pyplot - Data Visualization
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">matplotlib.pyplot is a collection of command style functions that make matplotlib work like MATLAB. Each pyplot function makes some change to a figure: e.g.,...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>

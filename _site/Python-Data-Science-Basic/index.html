@@ -1,0 +1,1067 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Python for Data Science - Part 1 - Sheikh Hanif</title>
+<meta name="description" content="Along the way you will be learning about following topics. - How to print, comment - Python String - Python list - Python packages - Numpy">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Python for Data Science - Part 1">
+<meta property="og:url" content="http://localhost:4000/Python-Data-Science-Basic/">
+
+
+  <meta property="og:description" content="Along the way you will be learning about following topics. - How to print, comment - Python String - Python list - Python packages - Numpy">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/python/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-01-24T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Python-Data-Science-Basic/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Python for Data Science - Part 1">
+    <meta itemprop="description" content="Along the way you will be learning about following topics. - How to print, comment - Python String - Python list - Python packages - Numpy">
+    <meta itemprop="datePublished" content="January 24, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Python for Data Science - Part 1
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>This is the first part of Python for Data Science. I will provide the most basics of Python to get started your data
+science journey. Along the way you will be learning about following topics.</p>
+<ul>
+  <li>How to print, comment</li>
+  <li>Python String</li>
+  <li>Python list</li>
+  <li>Python packages</li>
+  <li>Numpy</li>
+</ul>
+
+<h3 id="python-basics">Python Basics</h3>
+<p>Python is a versatile language. You can use it to 
+perform pretty much everything you want. From analyzing and building ML model
+to building efficient web application can be done easily.
+Ok, that’s enough! Let’s get into the business</p>
+
+<h3 id="printing-and-conmmenting">Printing and conmmenting</h3>
+<p>If you want to print a statement you just need to call python pirnt()
+function. Let’s say I wanto print 5. I just need to pass 5 inside print() function as follows</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+</code></pre></div></div>
+
+<p>We can perform mathematical calcualtion in python natural way.
+Let’s say, I want to add two numbers. I can just do it as follows:-</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addNumber</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">addNumber</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9
+</code></pre></div></div>
+
+<p>Hold on! You might be wondering what is that ‘addNumber’ comes from. You can refer to it as 
+variable. In Python, a variable allows you to refer to a value with a name. To create a variable use =, like this example: x = 10.</p>
+
+<p>Another way to think is that Python is an object-oriented programming language, and in Python everything is an object. In our case 
+‘addNumber’ refer to an object which is (5 + 4).
+You can think yourself as an object where you have some value, 
+attribute and so on. In future post you can learn more about object.</p>
+
+<p>Now, you should be able to do other mathematical operation. Let’s move on.</p>
+
+<p>How about you want to comment something in your code.
+You can use comment as follows: -
+Single Line Commment:</p>
+<ul>
+  <li>this is single line comment</li>
+  <li>””” This is for multiple
+line comment”””
+Bear in mind that “”” “”” is docstring where you can do multiple
+lines of comment within it.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># I'm comment. I won't be executed</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10
+</code></pre></div></div>
+
+<p>Let’s solve a very simple real life problem. Imagine you went 
+to market. You have bought 5 pens 1 dollar each, a excercise book with 8.5 dollars.
+Let’s calculate the total cost.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cost of items</span>
+<span class="n">pen_cost</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">book_cost</span> <span class="o">=</span> <span class="mf">8.5</span>
+
+<span class="c"># total cost</span>
+<span class="n">total_cost</span> <span class="o">=</span> <span class="n">pen_cost</span> <span class="o">+</span> <span class="n">book_cost</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total spent"</span><span class="p">,</span> <span class="n">total_cost</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total spent 13.5
+</code></pre></div></div>
+
+<h3 id="type">Type</h3>
+<p>There are different types of objects in python. Some
+of them are integer, string, boolean.
+To evaluate the type of object we can use Python 
+type() fucntion.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"type of 'pen_cost' oject is: "</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">pen_cost</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type of 'pen_cost' oject is:  &lt;class 'int'&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_name</span> <span class="o">=</span> <span class="s">"Hanif"</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"type of 'my_name' oject is: "</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">my_name</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type of 'my_name' oject is:  &lt;class 'str'&gt;
+</code></pre></div></div>
+
+<p>You can evaluate any type of object using this funcion. Try yourseft by 
+creating more variables</p>
+
+<h3 id="string">String</h3>
+<p>We know that we can do mathematical operation on numbers
+more precisely on ‘int’, ‘float’ objects. How about you want to 
+add two string.
+You can do as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">first_name</span> <span class="o">=</span> <span class="s">"Sheikh"</span>
+<span class="n">last_name</span> <span class="o">=</span> <span class="s">"Hanif"</span>
+<span class="n">full_name</span> <span class="o">=</span> <span class="n">first_name</span> <span class="o">+</span> <span class="n">last_name</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"My full name is: "</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My full name is:  SheikhHanif
+</code></pre></div></div>
+
+<p>In above code block I am declaring three variables.
+Where I am referring two ‘str’ objects with first two variables
+And then concatenating these two objects and store into 
+third variables which is ‘full_name’.</p>
+
+<p>Every object has it’s own attributes and methods in it.
+‘str’ object has bunch of methods in it.
+You can see what methods and attributes available in 
+an object as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">dir</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__add__',
+ '__class__',
+ '__contains__',
+ '__delattr__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__getitem__',
+ '__getnewargs__',
+ '__gt__',
+ '__hash__',
+ 
+ 'find',
+ 'format',
+ 'format_map',
+ 'index',
+ 'isalnum',
+ 'isalpha',
+ 'isascii',
+ 'isdecimal',
+ ..............
+ 'swapcase',
+ 'title',
+ 'translate',
+ 'upper',
+ 'zfill']
+</code></pre></div></div>
+
+<p>As you can see there are a lot of methods and attribtes of string object.
+Let’s try few of them.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Uppercase</span>
+<span class="n">full_name</span> <span class="o">=</span> <span class="n">full_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+
+<span class="c"># counting specific alplhabel in string</span>
+<span class="n">count_H</span> <span class="o">=</span> <span class="n">full_name</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">'H'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">count_H</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SHEIKHHANIF
+3
+</code></pre></div></div>
+
+<h3 id="list">List</h3>
+<p>A list can contain any Python type. Although it’s not really common, a list can also contain a mix of Python types including strings, floats, booleans, etc.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># creating list</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+
+<span class="c"># print list</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[10, 20, 11, 99, 40]
+</code></pre></div></div>
+
+<p>We can access the items / objects / values in list
+by index. In programming index start with 0. You can print
+the last number as follows.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># print the last number from list</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>40
+</code></pre></div></div>
+
+<p>We can even slice a list. You can print particular items
+you want as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># print first 3 items</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[10, 20, 11]
+</code></pre></div></div>
+
+<p>Replacing list elements is pretty easy. Simply subset the list and assign new values to the subset. You can select single elements or you can change entire list slices at once.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># replacing last element from the list</span>
+<span class="n">numbers</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c"># printing the list</span>
+<span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[10, 20, 11, 99, 100]
+</code></pre></div></div>
+
+<p>You can add element in a list and also delete an element
+from it as follows</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># adding element</span>
+<span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="c"># delete an element </span>
+<span class="k">del</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Now let’s look into our list after deleting the first
+item and adding 150 in it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[20, 11, 99, 100, 150]
+</code></pre></div></div>
+
+<h3 id="packages">Packages</h3>
+<p>Pythons has large collection of packages. It’s enriched
+with a lot of scientific and data science packages. In order to 
+work with these packages you need to import them. Importing
+packages is pretty much easy in python. Like asking your mom to give you
+food. Here is how : -</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># importing math package</span>
+<span class="kn">import</span> <span class="nn">math</span>
+</code></pre></div></div>
+
+<p>Pretty simple rite!! How about you want to import specific
+method / function from a package. You can do so as
+follows -</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># importing pi from math modules</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's utilize our package</span>
+<span class="c"># as we already imported it.</span>
+
+<span class="c"># calculating area of circle</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span> 
+
+<span class="c"># printing area</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The area of circle with radius 5 is: "</span><span class="p">,</span> <span class="n">area</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The area of circle with radius 5 is:  78.53981633974483
+</code></pre></div></div>
+
+<h3 id="numpy">Numpy</h3>
+<p>Numpy is one of the python scientific package which 
+you gonna love. Because it’s super fast, easy and best tool 
+to work with n-dimensional arrays. OPPS!!! ‘arrays’!!
+I didn’t mention it before right. Remember our list called
+‘numbers’. It’s an one dimensional array. Now we will work
+with numpy array. Let’s go.</p>
+
+<p>As I mentioned earlier, if we want to use any package we need to 
+import them first. Let’s do it!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># importing numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<p>I import the ‘numpy’ package and give it a name ‘np’
+so that I can refer it as ‘np’ later on. You can give it 
+any name you want. But by convention everyone use
+‘np’. So if you use np everone will understand it as
+numpy. Enough talk! Let explore…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># creating numpy array</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">39</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[39 12 43 11 90]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's add 1 in each element of it</span>
+<span class="c"># Python broadcasting. Will tank next episode</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="n">nums</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[40 13 44 12 91]
+</code></pre></div></div>
+
+<p>We can now do a lot of operation in ‘nums’. Let’s check what methods and attributes are available in numpy. We will try out few of them</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># getting available numpy attributes and methods</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">np</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['ALLOW_THREADS',
+ 'AxisError',
+ 'BUFSIZE',
+ 'CLIP',
+ 'ComplexWarning',
+ 'DataSource',
+ ------------
+ 'where',
+ 'who',
+ 'zeros',
+ 'zeros_like']
+</code></pre></div></div>
+
+<p>We can create numpy arrays with zeros and ones in it
+as follows.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># array with zeros</span>
+<span class="n">z_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">z_arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># array with ones</span>
+<span class="n">o_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">o_arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+</code></pre></div></div>
+
+<p>I can create 2d numpy array as well. At the same time,
+I can resize an array however I want.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># creating an 2d array</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1 2]
+ [3 4]
+ [5 6]]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to get the shape</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(3, 2)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to reshape</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1 2 3]
+ [4 5 6]]
+</code></pre></div></div>
+
+<p>To access element in multi-dimensional array, first 
+you need the specify the row number and then column.
+If I want to access 5 from ‘arr’. I can access it as follows: -</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># printing entire second row</span>
+<span class="k">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4 5 6]
+</code></pre></div></div>
+
+<p>You can do a lot more with numpy. In the exciting world of data science, there are plenty of tools and package to work with. That’s 
+all for introduction to python for data science series. Check out rest of my blog for more resources.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">python</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-24T00:00:00+08:00">January 24, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Python+for+Data+Science+-+Part+1%20http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Basic%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Basic%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Basic%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Basic%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Importing-Data-in-Python-Part-2/" class="pagination--pager" title="Import Different Types of File in Python for Analysis - Part 2
+">Previous</a>
+    
+    
+      <a href="/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/" class="pagination--pager" title="Analyzing Geo-data Using Folium
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Python-Data-Science-Basic/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+        
+    
+    
+  
+    
+    
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/import2/logo.jpg"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Importing-Data-in-Python-Part-2/" rel="permalink">Import Different Types of File in Python for Analysis - Part 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web), api and so on and proce...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/import1/output_13_0.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Importing-Data-in-Python-Part-1/" rel="permalink">Import Different Types of File in Python for Analysis - Part 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Typically, data scientists will work with enormous types of file. Having the knowledge of these types of file and importing them properly will speed up the p...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/ptool2/output_29_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Python-Data-Science-Toolbox-Part-2/" rel="permalink">Python Data Science Toolbox - Part2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as a Python developer or data scientist. Thi...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/interpython/output_9_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Intermediate-Python-for-Data-Science/" rel="permalink">Intermediate Python for Data Science
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This notebook contains most of the essential elements of Python skill for data science. While you go through it, you will learn about - how to use matplotlib...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>

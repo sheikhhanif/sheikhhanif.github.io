@@ -1,0 +1,1136 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Python Data Science Toolbox - Part2 - Sheikh Hanif</title>
+<meta name="description" content="In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as a Python developer or data scientist. This post mostly focuses on data science aspect. Topic Covered:">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Python Data Science Toolbox - Part2">
+<meta property="og:url" content="http://localhost:4000/Python-Data-Science-Toolbox-Part-2/">
+
+
+  <meta property="og:description" content="In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as a Python developer or data scientist. This post mostly focuses on data science aspect. Topic Covered:">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/ptool2/output_29_1.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-01-15T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Python-Data-Science-Toolbox-Part-2/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Python Data Science Toolbox - Part2">
+    <meta itemprop="description" content="In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as a Python developer or data scientist. This post mostly focuses on data science aspect. Topic Covered:">
+    <meta itemprop="datePublished" content="January 15, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Python Data Science Toolbox - Part2
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as 
+a Python developer or data scientist. This post mostly focuses on data science aspect.
+Topic Covered:</p>
+
+<ul>
+  <li>Iterators</li>
+  <li>List Comprehension and Generators</li>
+  <li>Case study - based on what we learned.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># importing necessary modules</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</code></pre></div></div>
+
+<h2 id="iterators">Iterators</h2>
+<p>an iterable is an object that can return an iterator, while an iterator is an object that keeps state and produces the next value when you call next() on it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">word</span> <span class="o">=</span> <span class="s">'datascience'</span>
+<span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+<span class="c"># 1 alphabet at a time</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+
+<span class="c"># print all at a time</span>
+<span class="k">print</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d
+a t a s c i e n c e
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a range object: values</span>
+<span class="n">values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">21</span><span class="p">)</span>
+
+<span class="c"># Print the range object</span>
+<span class="k">print</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c"># Create a list of integers: values_list</span>
+<span class="n">values_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c"># Print values_list</span>
+<span class="k">print</span><span class="p">(</span><span class="n">values_list</span><span class="p">)</span>
+
+<span class="c"># Get the sum of values: values_sum</span>
+<span class="n">values_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c"># Print values_sum</span>
+<span class="k">print</span><span class="p">(</span><span class="n">values_sum</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>range(10, 21)
+[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+165
+</code></pre></div></div>
+
+<p>enumerate() returns an enumerate object that produces a sequence of tuples, and each of the tuples is an index-value pair.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># enumerate</span>
+<span class="n">shopping_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Shows'</span><span class="p">,</span> <span class="s">'Pants'</span><span class="p">,</span> <span class="s">'Shirt'</span><span class="p">]</span>
+
+<span class="n">enu_shop</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shopping_list</span><span class="p">)</span>
+
+<span class="c"># let's turn enu_shop object into list</span>
+<span class="n">enu_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">enu_shop</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">enu_list</span><span class="p">,</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="c"># let's unpack values using loop</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">enu_list</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">" : "</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[(0, 'Shows'), (1, 'Pants'), (2, 'Shirt')] 
+
+0  :  Shows
+1  :  Pants
+2  :  Shirt
+</code></pre></div></div>
+
+<p>zip() function takes any number of iterables and returns a zip object that is an iterator of tuples. If you wanted to print the values of a zip object, you can convert it into a list and then print it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># zip</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">zipped</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">zipped</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[(1, 4), (2, 5), (3, 6)]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tweet_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/tweets.csv'</span><span class="p">)</span>
+<span class="n">tweet_data</span><span class="p">[</span><span class="s">'lang'</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>count     100
+unique      3
+top        en
+freq       97
+Name: lang, dtype: object
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Define count_entries()</span>
+<span class="k">def</span> <span class="nf">count_entries</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">c_size</span><span class="p">,</span> <span class="n">colname</span><span class="p">):</span>
+    <span class="s">"""Return a dictionary with counts of
+    occurrences as value for each key."""</span>
+    
+    <span class="c"># Initialize an empty dictionary: counts_dict</span>
+    <span class="n">counts_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c"># Iterate over the file chunk by chunk</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="n">c_size</span><span class="p">):</span>
+        
+        <span class="c"># Iterate over the column in DataFrame</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">[</span><span class="n">colname</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">counts_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">counts_dict</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">counts_dict</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c"># Return counts_dict</span>
+    <span class="k">return</span> <span class="n">counts_dict</span>
+
+<span class="c"># Call count_entries(): result_counts</span>
+<span class="n">result_counts</span> <span class="o">=</span> <span class="n">count_entries</span><span class="p">(</span><span class="s">'data/tweets.csv'</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="s">'lang'</span><span class="p">)</span>
+
+<span class="c"># Print result_counts</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result_counts</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'en': 97, 'et': 1, 'und': 2}
+</code></pre></div></div>
+
+<h2 id="list-comprehension-and-generators">List Comprehension and Generators</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mylist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+
+<span class="c"># if we want to create another list</span>
+<span class="c"># which is the square of 'mylist'</span>
+<span class="c"># we can do so by following</span>
+
+<span class="n">list_sqr</span> <span class="o">=</span> <span class="p">[</span><span class="n">sqr</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">sqr</span> <span class="ow">in</span> <span class="n">mylist</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">list_sqr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4, 100, 25, 81, 144]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># another example</span>
+<span class="n">mylist2</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">3</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">mylist2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0, 1, 8, 27, 64, 125, 216, 343, 512, 729]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's create a 4 by 4 matrix using comprehension</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0, 1, 2, 3]
+[0, 1, 2, 3]
+[0, 1, 2, 3]
+[0, 1, 2, 3]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># conditionals in comprehensions</span>
+<span class="n">cond_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cond_list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0, 4, 16, 36, 64, 100]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># another conditional comprehension</span>
+<span class="n">con_list2</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">con_list2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0, 0, 4, 0, 16, 0, 36, 0, 64, 0, 100]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># dictionary comprehension</span>
+<span class="n">dic_com</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">dic_com</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Example with string</span>
+<span class="n">student</span> <span class="o">=</span> <span class="p">[</span><span class="s">'hanif'</span><span class="p">,</span> <span class="s">'ahmed'</span><span class="p">,</span> <span class="s">'imad'</span><span class="p">,</span> <span class="s">'fakri'</span><span class="p">,</span> <span class="s">'ali'</span><span class="p">]</span>
+
+<span class="n">dic_student</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">student</span><span class="p">}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">dic_student</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'hanif': 5, 'ahmed': 5, 'imad': 4, 'fakri': 5, 'ali': 3}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generator: it almost like comprehension but it won't store</span>
+<span class="c"># the value in the memory, it will just create a generator object</span>
+
+<span class="n">my_gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Generator object created</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="n">my_gen</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Generator object created
+ &lt;generator object &lt;genexpr&gt; at 0x0000026CB3F33D58&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># We can unpace it using loop</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_gen</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+1
+4
+9
+16
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># generator function</span>
+<span class="k">def</span> <span class="nf">gen_fun</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gen_num</span> <span class="o">=</span> <span class="n">gen_fun</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c"># generator object from generator function</span>
+<span class="k">print</span><span class="p">(</span><span class="n">gen_num</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;generator object gen_fun at 0x0000026CB3F01BF8&gt;
+</code></pre></div></div>
+
+<h2 id="case-study">Case Study</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's read our world bank data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/world_ind_pop_data.csv'</span><span class="p">)</span>
+
+<span class="c"># first 10 rows of data</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CountryName</th>
+      <th>CountryCode</th>
+      <th>Year</th>
+      <th>Total Population</th>
+      <th>Urban population (% of total)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1960</td>
+      <td>9.249590e+07</td>
+      <td>31.285384</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Caribbean small states</td>
+      <td>CSS</td>
+      <td>1960</td>
+      <td>4.190810e+06</td>
+      <td>31.597490</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Central Europe and the Baltics</td>
+      <td>CEB</td>
+      <td>1960</td>
+      <td>9.140158e+07</td>
+      <td>44.507921</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>East Asia &amp; Pacific (all income levels)</td>
+      <td>EAS</td>
+      <td>1960</td>
+      <td>1.042475e+09</td>
+      <td>22.471132</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>East Asia &amp; Pacific (developing only)</td>
+      <td>EAP</td>
+      <td>1960</td>
+      <td>8.964930e+08</td>
+      <td>16.917679</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Euro area</td>
+      <td>EMU</td>
+      <td>1960</td>
+      <td>2.653965e+08</td>
+      <td>62.096947</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Europe &amp; Central Asia (all income levels)</td>
+      <td>ECS</td>
+      <td>1960</td>
+      <td>6.674890e+08</td>
+      <td>55.378977</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Europe &amp; Central Asia (developing only)</td>
+      <td>ECA</td>
+      <td>1960</td>
+      <td>1.553174e+08</td>
+      <td>38.066129</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>European Union</td>
+      <td>EUU</td>
+      <td>1960</td>
+      <td>4.094985e+08</td>
+      <td>61.212898</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Fragile and conflict affected situations</td>
+      <td>FCS</td>
+      <td>1960</td>
+      <td>1.203546e+08</td>
+      <td>17.891972</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># no of rows</span>
+<span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CountryName                      13374
+CountryCode                      13374
+Year                             13374
+Total Population                 13374
+Urban population (% of total)    13374
+dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># converting column title into list</span>
+
+<span class="n">col_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">col_name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['CountryName', 'CountryCode', 'Year', 'Total Population', 'Urban population (% of total)']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's take the first row from our dataset</span>
+<span class="c"># and create another list</span>
+
+<span class="n">first_row</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">first_row</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['Arab World', 'ARB', 1960, 92495902.0, 31.285384211605397]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">list2dict</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">):</span>
+    <span class="s">"""
+    This funtion will take two list as parameters
+    and will return a dictionary
+    """</span>
+    
+    <span class="n">zipped_list</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">zipped_list</span><span class="p">)</span>
+
+
+<span class="c"># lets call our list2dict with 2 lists</span>
+<span class="c"># we created from our dataset</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">list2dict</span><span class="p">(</span><span class="n">col_name</span><span class="p">,</span> <span class="n">first_row</span><span class="p">))</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'CountryName': 'Arab World', 'CountryCode': 'ARB', 'Year': 1960, 'Total Population': 92495902.0, 'Urban population (% of total)': 31.285384211605397}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Define plot_pop()</span>
+<span class="k">def</span> <span class="nf">plot_pop</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">country_code</span><span class="p">):</span>
+
+    <span class="c"># Initialize reader object: urb_pop_reader</span>
+    <span class="n">urb_pop_reader</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="c"># Initialize empty DataFrame: data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="c"># Iterate over each DataFrame chunk</span>
+    <span class="k">for</span> <span class="n">df_urb_pop</span> <span class="ow">in</span> <span class="n">urb_pop_reader</span><span class="p">:</span>
+        <span class="c"># Check out specific country: df_pop_ceb</span>
+        <span class="n">df_pop_ceb</span> <span class="o">=</span> <span class="n">df_urb_pop</span><span class="p">[</span><span class="n">df_urb_pop</span><span class="p">[</span><span class="s">'CountryCode'</span><span class="p">]</span> <span class="o">==</span> <span class="n">country_code</span><span class="p">]</span>
+
+        <span class="c"># Zip DataFrame columns of interest: pops</span>
+        <span class="n">pops</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_pop_ceb</span><span class="p">[</span><span class="s">'Total Population'</span><span class="p">],</span>
+                    <span class="n">df_pop_ceb</span><span class="p">[</span><span class="s">'Urban population (</span><span class="si">% </span><span class="s">of total)'</span><span class="p">])</span>
+
+        <span class="c"># Turn zip object into list: pops_list</span>
+        <span class="n">pops_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pops</span><span class="p">)</span>
+
+        <span class="c"># Use list comprehension to create new DataFrame column 'Total Urban Population'</span>
+        <span class="n">df_pop_ceb</span><span class="p">[</span><span class="s">'Total Urban Population'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">pops_list</span><span class="p">]</span>
+    
+        <span class="c"># Append DataFrame chunk to data: data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_pop_ceb</span><span class="p">)</span>
+
+    <span class="c"># Plot urban population data</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">'scatter'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Year'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Total Urban Population'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c"># Set the filename: fn</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="s">'data/world_ind_pop_data.csv'</span>
+
+<span class="c"># Call plot_pop for country code 'CEB'</span>
+<span class="n">plot_pop</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s">'CEB'</span><span class="p">)</span>
+
+<span class="c"># Call plot_pop for country code 'ARB'</span>
+<span class="n">plot_pop</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s">'ARB'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p><img src="/assets/images/ptool2/output_29_1.png" alt="png" /></p>
+
+<p><img src="/assets/images/ptool2/output_29_2.png" alt="png" /></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#data-science" class="page__taxonomy-item" rel="tag">data science</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">python</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-15T00:00:00+08:00">January 15, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Python+Data+Science+Toolbox+-+Part2%20http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Toolbox-Part-2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Toolbox-Part-2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Toolbox-Part-2%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FPython-Data-Science-Toolbox-Part-2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Intermediate-Python-for-Data-Science/" class="pagination--pager" title="Intermediate Python for Data Science
+">Previous</a>
+    
+    
+      <a href="/Importing-Data-in-Python-Part-1/" class="pagination--pager" title="Import Different Types of File in Python for Analysis - Part 1
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Python-Data-Science-Toolbox-Part-2/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/python/logo.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Python-Data-Science-Basic/" rel="permalink">Python for Data Science - Part 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Along the way you will be learning about following topics. - How to print, comment - Python String - Python list - Python packages - Numpy
+</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/import2/logo.jpg"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Importing-Data-in-Python-Part-2/" rel="permalink">Import Different Types of File in Python for Analysis - Part 2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web), api and so on and proce...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/import1/output_13_0.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Importing-Data-in-Python-Part-1/" rel="permalink">Import Different Types of File in Python for Analysis - Part 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Typically, data scientists will work with enormous types of file. Having the knowledge of these types of file and importing them properly will speed up the p...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/interpython/output_9_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Intermediate-Python-for-Data-Science/" rel="permalink">Intermediate Python for Data Science
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This notebook contains most of the essential elements of Python skill for data science. While you go through it, you will learn about - how to use matplotlib...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>

@@ -1,0 +1,1390 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Building Scikit-Learn Linear Model: Elasticnet - Sheikh Hanif</title>
+<meta name="description" content="In this notebook we will learn how to use scikit learn to build best linear regressor model. We used gapminder dataset which is related to population in different region and average life expectency. More about our dataset you will see below. We split our datasets into train and test set. We build our model using scikit learn elasticnet linear model. We evaluate our model using test set. We used gridsearch cross validation to optimized our model.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Building Scikit-Learn Linear Model: Elasticnet">
+<meta property="og:url" content="http://localhost:4000/Scikit-Learn-Linear-Model-Elasticnet/">
+
+
+  <meta property="og:description" content="In this notebook we will learn how to use scikit learn to build best linear regressor model. We used gapminder dataset which is related to population in different region and average life expectency. More about our dataset you will see below. We split our datasets into train and test set. We build our model using scikit learn elasticnet linear model. We evaluate our model using test set. We used gridsearch cross validation to optimized our model.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/elasticnet/output_14_1.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-01-19T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Scikit-Learn-Linear-Model-Elasticnet/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Building Scikit-Learn Linear Model: Elasticnet">
+    <meta itemprop="description" content="In this notebook we will learn how to use scikit learn to build best linear regressor model. We used gapminder dataset which is related to population in different region and average life expectency. More about our dataset you will see below. We split our datasets into train and test set. We build our model using scikit learn elasticnet linear model. We evaluate our model using test set. We used gridsearch cross validation to optimized our model.">
+    <meta itemprop="datePublished" content="January 19, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Building Scikit-Learn Linear Model: Elasticnet
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h4 id="introduction--go-to-repository">Introduction  <a href="https://github.com/sheikhhanif/ElasticNet-Scikit-Learn.git" target="_blank">Go to Repository</a></h4>
+<p>In this notebook we will learn how to use scikit learn to build best 
+linear regressor model. We used gapminder dataset which is related to 
+population in different region and average life expectency. More about our 
+dataset you will see below. We split our datasets into train and test set.
+We build our model using scikit learn elasticnet linear model. We evaluate 
+our model using test set. We used gridsearch cross validation to optimized our
+model.</p>
+
+<h3 id="importing-required-packages">Importing Required Packages</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">ElasticNet</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+</code></pre></div></div>
+
+<h2 id="reading-the-data-in">Reading the data in</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/gm_2008_region.csv'</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population</th>
+      <th>fertility</th>
+      <th>HIV</th>
+      <th>CO2</th>
+      <th>BMI_male</th>
+      <th>GDP</th>
+      <th>BMI_female</th>
+      <th>life</th>
+      <th>child_mortality</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>34811059.0</td>
+      <td>2.73</td>
+      <td>0.1</td>
+      <td>3.328945</td>
+      <td>24.59620</td>
+      <td>12314.0</td>
+      <td>129.9049</td>
+      <td>75.3</td>
+      <td>29.5</td>
+      <td>Middle East &amp; North Africa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>19842251.0</td>
+      <td>6.43</td>
+      <td>2.0</td>
+      <td>1.474353</td>
+      <td>22.25083</td>
+      <td>7103.0</td>
+      <td>130.1247</td>
+      <td>58.3</td>
+      <td>192.0</td>
+      <td>Sub-Saharan Africa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40381860.0</td>
+      <td>2.24</td>
+      <td>0.5</td>
+      <td>4.785170</td>
+      <td>27.50170</td>
+      <td>14646.0</td>
+      <td>118.8915</td>
+      <td>75.5</td>
+      <td>15.4</td>
+      <td>America</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2975029.0</td>
+      <td>1.40</td>
+      <td>0.1</td>
+      <td>1.804106</td>
+      <td>25.35542</td>
+      <td>7383.0</td>
+      <td>132.8108</td>
+      <td>72.5</td>
+      <td>20.0</td>
+      <td>Europe &amp; Central Asia</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21370348.0</td>
+      <td>1.96</td>
+      <td>0.1</td>
+      <td>18.016313</td>
+      <td>27.56373</td>
+      <td>41312.0</td>
+      <td>117.3755</td>
+      <td>81.5</td>
+      <td>5.2</td>
+      <td>East Asia &amp; Pacific</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="data-exploration">Data Exploration</h3>
+
+<p>Before we build our model Let’s have a descriptive exploration on our data. We will visualize how each feature is co-related to each other. Also we will visualize some features vs life of our dataset. Visualization will give us better understanding of our data and will help us to select appropriate feature to build our model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># summerize our data</span>
+<span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population</th>
+      <th>fertility</th>
+      <th>HIV</th>
+      <th>CO2</th>
+      <th>BMI_male</th>
+      <th>GDP</th>
+      <th>BMI_female</th>
+      <th>life</th>
+      <th>child_mortality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1.390000e+02</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+      <td>139.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.549977e+07</td>
+      <td>3.005108</td>
+      <td>1.915612</td>
+      <td>4.459874</td>
+      <td>24.623054</td>
+      <td>16638.784173</td>
+      <td>126.701914</td>
+      <td>69.602878</td>
+      <td>45.097122</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.095121e+08</td>
+      <td>1.615354</td>
+      <td>4.408974</td>
+      <td>6.268349</td>
+      <td>2.209368</td>
+      <td>19207.299083</td>
+      <td>4.471997</td>
+      <td>9.122189</td>
+      <td>45.724667</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2.773150e+05</td>
+      <td>1.280000</td>
+      <td>0.060000</td>
+      <td>0.008618</td>
+      <td>20.397420</td>
+      <td>588.000000</td>
+      <td>117.375500</td>
+      <td>45.200000</td>
+      <td>2.700000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3.752776e+06</td>
+      <td>1.810000</td>
+      <td>0.100000</td>
+      <td>0.496190</td>
+      <td>22.448135</td>
+      <td>2899.000000</td>
+      <td>123.232200</td>
+      <td>62.200000</td>
+      <td>8.100000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>9.705130e+06</td>
+      <td>2.410000</td>
+      <td>0.400000</td>
+      <td>2.223796</td>
+      <td>25.156990</td>
+      <td>9938.000000</td>
+      <td>126.519600</td>
+      <td>72.000000</td>
+      <td>24.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2.791973e+07</td>
+      <td>4.095000</td>
+      <td>1.300000</td>
+      <td>6.589156</td>
+      <td>26.497575</td>
+      <td>23278.500000</td>
+      <td>130.275900</td>
+      <td>76.850000</td>
+      <td>74.200000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.197070e+09</td>
+      <td>7.590000</td>
+      <td>25.900000</td>
+      <td>48.702062</td>
+      <td>28.456980</td>
+      <td>126076.000000</td>
+      <td>135.492000</td>
+      <td>82.600000</td>
+      <td>192.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Let's select some of the features to explore more</span>
+<span class="n">chosen_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s">'population'</span><span class="p">,</span> <span class="s">'fertility'</span><span class="p">,</span> <span class="s">'HIV'</span><span class="p">,</span> <span class="s">'CO2'</span><span class="p">,</span> <span class="s">'GDP'</span><span class="p">,</span> <span class="s">'child_mortality'</span><span class="p">,</span> <span class="s">'life'</span><span class="p">]]</span>
+<span class="n">chosen_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population</th>
+      <th>fertility</th>
+      <th>HIV</th>
+      <th>CO2</th>
+      <th>GDP</th>
+      <th>child_mortality</th>
+      <th>life</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>34811059.0</td>
+      <td>2.73</td>
+      <td>0.1</td>
+      <td>3.328945</td>
+      <td>12314.0</td>
+      <td>29.5</td>
+      <td>75.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>19842251.0</td>
+      <td>6.43</td>
+      <td>2.0</td>
+      <td>1.474353</td>
+      <td>7103.0</td>
+      <td>192.0</td>
+      <td>58.3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40381860.0</td>
+      <td>2.24</td>
+      <td>0.5</td>
+      <td>4.785170</td>
+      <td>14646.0</td>
+      <td>15.4</td>
+      <td>75.5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2975029.0</td>
+      <td>1.40</td>
+      <td>0.1</td>
+      <td>1.804106</td>
+      <td>7383.0</td>
+      <td>20.0</td>
+      <td>72.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21370348.0</td>
+      <td>1.96</td>
+      <td>0.1</td>
+      <td>18.016313</td>
+      <td>41312.0</td>
+      <td>5.2</td>
+      <td>81.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># We can plot each of these features </span>
+<span class="n">chosen_data</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_8_0.png" alt="png" /></p>
+
+<p>Let’s now plot each of these features vs life, to their relation</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">chosen_data</span><span class="o">.</span><span class="n">HIV</span><span class="p">,</span> <span class="n">chosen_data</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'HIV'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_10_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">chosen_data</span><span class="o">.</span><span class="n">GDP</span><span class="p">,</span> <span class="n">chosen_data</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'GDP'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_11_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">chosen_data</span><span class="o">.</span><span class="n">child_mortality</span><span class="p">,</span> <span class="n">chosen_data</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Child Mortality'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_12_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">chosen_data</span><span class="o">.</span><span class="n">CO2</span><span class="p">,</span> <span class="n">chosen_data</span><span class="o">.</span><span class="n">life</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'CO2'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_13_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlGn'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/elasticnet/output_14_1.png" alt="png" /></p>
+
+<h3 id="data-preprocessing">Data preprocessing</h3>
+<p>We will be using scikit learn to build our model as I mentioned earlier. We have to make sure that there is/are no missing value exist in our dataset. Also we we have to make sure all of our features data are numerical. As categorical data will not be entertained by scikit learn model. In the following we address and fix such issues.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># dertermining any missing value</span>
+<span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>population         139
+fertility          139
+HIV                139
+CO2                139
+BMI_male           139
+GDP                139
+BMI_female         139
+life               139
+child_mortality    139
+Region             139
+dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># determining andy null value</span>
+<span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>population         0
+fertility          0
+HIV                0
+CO2                0
+BMI_male           0
+GDP                0
+BMI_female         0
+life               0
+child_mortality    0
+Region             0
+dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># determing categorical value</span>
+<span class="n">data</span><span class="o">.</span><span class="n">Region</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    Middle East &amp; North Africa
+1            Sub-Saharan Africa
+2                       America
+3         Europe &amp; Central Asia
+4           East Asia &amp; Pacific
+Name: Region, dtype: object
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Converting categorical to numerical </span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population</th>
+      <th>fertility</th>
+      <th>HIV</th>
+      <th>CO2</th>
+      <th>BMI_male</th>
+      <th>GDP</th>
+      <th>BMI_female</th>
+      <th>life</th>
+      <th>child_mortality</th>
+      <th>Region_East Asia &amp; Pacific</th>
+      <th>Region_Europe &amp; Central Asia</th>
+      <th>Region_Middle East &amp; North Africa</th>
+      <th>Region_South Asia</th>
+      <th>Region_Sub-Saharan Africa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>34811059.0</td>
+      <td>2.73</td>
+      <td>0.1</td>
+      <td>3.328945</td>
+      <td>24.59620</td>
+      <td>12314.0</td>
+      <td>129.9049</td>
+      <td>75.3</td>
+      <td>29.5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>19842251.0</td>
+      <td>6.43</td>
+      <td>2.0</td>
+      <td>1.474353</td>
+      <td>22.25083</td>
+      <td>7103.0</td>
+      <td>130.1247</td>
+      <td>58.3</td>
+      <td>192.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40381860.0</td>
+      <td>2.24</td>
+      <td>0.5</td>
+      <td>4.785170</td>
+      <td>27.50170</td>
+      <td>14646.0</td>
+      <td>118.8915</td>
+      <td>75.5</td>
+      <td>15.4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2975029.0</td>
+      <td>1.40</td>
+      <td>0.1</td>
+      <td>1.804106</td>
+      <td>25.35542</td>
+      <td>7383.0</td>
+      <td>132.8108</td>
+      <td>72.5</td>
+      <td>20.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21370348.0</td>
+      <td>1.96</td>
+      <td>0.1</td>
+      <td>18.016313</td>
+      <td>27.56373</td>
+      <td>41312.0</td>
+      <td>117.3755</td>
+      <td>81.5</td>
+      <td>5.2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="creating-train-and-test-dataset">Creating train and test dataset</h4>
+<p>Train/Test Split involves splitting the dataset into training and testing sets respectively, which are mutually exclusive. After which, we will train with the training set and test with the testing set. 
+This will provide a more accurate evaluation on out-of-sample accuracy because the testing dataset is not part of the dataset that have been used to train the data. It is more realistic for real world problems.</p>
+
+<p>This means that we know the outcome of each data point in this dataset, making it great to test with! And since this data has not been used to train the model, the model has no knowledge of the outcome of these data points. So, in essence, it is truly an out-of-sample testing.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Choosing target feature</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s">'life'</span><span class="p">]]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c"># Choosing input features</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s">'life'</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   life
+0  75.3
+1  58.3
+2  75.5
+   population  fertility  HIV       CO2  BMI_male      GDP  BMI_female  \
+0  34811059.0       2.73  0.1  3.328945  24.59620  12314.0    129.9049   
+1  19842251.0       6.43  2.0  1.474353  22.25083   7103.0    130.1247   
+2  40381860.0       2.24  0.5  4.785170  27.50170  14646.0    118.8915   
+
+   child_mortality  Region_East Asia &amp; Pacific  Region_Europe &amp; Central Asia  \
+0             29.5                           0                             0   
+1            192.0                           0                             0   
+2             15.4                           0                             0   
+
+   Region_Middle East &amp; North Africa  Region_South Asia  \
+0                                  1                  0   
+1                                  0                  0   
+2                                  0                  0   
+
+   Region_Sub-Saharan Africa  
+0                          0  
+1                          1  
+2                          0  
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create train and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="building-and-evaluating-model">Building and Evaluating model</h3>
+<p>As mentioned at the beginning, we are using elasticnet and grid search Cross validation. You can find great explanation in scikit-learn documentation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create the hyperparameter grid</span>
+<span class="n">l1_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s">'l1_ratio'</span><span class="p">:</span> <span class="n">l1_space</span><span class="p">}</span>
+
+<span class="c"># Instantiate the ElasticNet regressor: elastic_net</span>
+<span class="n">elastic_net</span> <span class="o">=</span> <span class="n">ElasticNet</span><span class="p">()</span>
+
+<span class="c"># Setup the GridSearchCV object: gm_cv</span>
+<span class="n">gm_cv</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">elastic_net</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c"># Fit it to the training data</span>
+<span class="n">gm_cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c"># Predict on the test set and compute metrics</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gm_cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">gm_cv</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Tuned ElasticNet l1 ratio: {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gm_cv</span><span class="o">.</span><span class="n">best_params_</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Tuned ElasticNet R squared: {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Tuned ElasticNet MSE: {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tuned ElasticNet l1 ratio: {'l1_ratio': 0.0}
+Tuned ElasticNet R squared: 0.8697529413665848
+Tuned ElasticNet MSE: 9.837193188072188
+</code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#linear-model" class="page__taxonomy-item" rel="tag">linear model</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#project" class="page__taxonomy-item" rel="tag">project</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#scikit-learn" class="page__taxonomy-item" rel="tag">scikit-learn</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-19T00:00:00+08:00">January 19, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Building+Scikit-Learn+Linear+Model%3A+Elasticnet%20http%3A%2F%2Flocalhost%3A4000%2FScikit-Learn-Linear-Model-Elasticnet%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FScikit-Learn-Linear-Model-Elasticnet%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FScikit-Learn-Linear-Model-Elasticnet%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FScikit-Learn-Linear-Model-Elasticnet%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Importing-Data-in-Python-Part-1/" class="pagination--pager" title="Import Different Types of File in Python for Analysis - Part 1
+">Previous</a>
+    
+    
+      <a href="/Importing-Data-in-Python-Part-2/" class="pagination--pager" title="Import Different Types of File in Python for Analysis - Part 2
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Scikit-Learn-Linear-Model-Elasticnet/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/folium/map.PNG"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/" rel="permalink">Analyzing Geo-data Using Folium
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  6 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">The goals of this project are : - Gather data specially [geo_location] of Malaysia public universities. - Use pandas to store data - Wrangling collected data...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/500.jpeg"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/dress-clssifier-model/" rel="permalink">ML Project - Dress Classifier
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">A simple project on dress classification with CNN, Keras. 2.0 Project Objectives - To observe students dress up among the IIUM community - To collect picture...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/500.jpeg"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/encryption-decryption-system/" rel="permalink">Encryption Decryption System
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">A onlie ecryption decryption system using JavaScript where you can encrypt and decrypt your file. It uses cryptojs library where I include most of the popula...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>

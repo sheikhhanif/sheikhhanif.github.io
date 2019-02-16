@@ -1,0 +1,2017 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Pandas Dataframe - Sheikh Hanif</title>
+<meta name="description" content="This post is about Pandas - Creating pandas dataframe, working with missing value and so on. The primary data structures in pandas are implemented as two classes:DataFrame, which you can imagine as a relational data table, with rows and named columns. Series, which is a single column. A DataFrame contains one or more Series and a name for each Series.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Pandas Dataframe">
+<meta property="og:url" content="http://localhost:4000/Pandas/">
+
+
+  <meta property="og:description" content="This post is about Pandas - Creating pandas dataframe, working with missing value and so on. The primary data structures in pandas are implemented as two classes:DataFrame, which you can imagine as a relational data table, with rows and named columns. Series, which is a single column. A DataFrame contains one or more Series and a name for each Series.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/pandas/output_40_1.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-12-30T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Pandas/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Pandas Dataframe">
+    <meta itemprop="description" content="This post is about Pandas - Creating pandas dataframe, working with missing value and so on. The primary data structures in pandas are implemented as two classes:DataFrame, which you can imagine as a relational data table, with rows and named columns. Series, which is a single column. A DataFrame contains one or more Series and a name for each Series.">
+    <meta itemprop="datePublished" content="December 30, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Pandas Dataframe
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="basic-concepts">Basic Concepts</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's first import all the libraries needed for this tutorial</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</code></pre></div></div>
+
+<p>The primary data structures in pandas are implemented as two classes:</p>
+
+<p>DataFrame, which you can imagine as a relational data table, with rows and named columns.
+Series, which is a single column. A DataFrame contains one or more Series and a name for each Series.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">day</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Friday'</span><span class="p">,</span> <span class="s">'Saturday'</span><span class="p">,</span> <span class="s">'Sunday'</span><span class="p">,</span> <span class="s">'Monday'</span><span class="p">,</span> <span class="s">'Tuesday'</span><span class="p">,</span> <span class="s">'Wednesday'</span><span class="p">,</span> <span class="s">'Thursday'</span> <span class="p">]</span>
+<span class="n">first_sell</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to merge these two list we will use zip function</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">day</span><span class="p">,</span><span class="n">first_sell</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[('Friday', 100),
+ ('Saturday', 120),
+ ('Sunday', 310),
+ ('Monday', 400),
+ ('Tuesday', 90),
+ ('Wednesday', 29),
+ ('Thursday', 30)]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Great, we have created our dataset. Let's use pandas do some magic</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">flower_sell</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'day'</span><span class="p">,</span> <span class="s">'sell'</span><span class="p">]</span> <span class="p">)</span>
+<span class="c"># df is for dataframe</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day</th>
+      <th>sell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friday</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Saturday</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Monday</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wednesday</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># we just have created pandas dataframe</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's do similar with pandas series</span>
+<span class="n">day</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s">'Friday'</span><span class="p">,</span> <span class="s">'Saturday'</span><span class="p">,</span> <span class="s">'Sunday'</span><span class="p">,</span> <span class="s">'Monday'</span><span class="p">,</span> <span class="s">'Tuesday'</span><span class="p">,</span> <span class="s">'Wednesday'</span><span class="p">,</span> <span class="s">'Thursday'</span> <span class="p">])</span>
+<span class="n">first_sell</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'Day'</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span> <span class="s">'Sell1'</span><span class="p">:</span> <span class="n">first_sell</span><span class="p">})</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Day</th>
+      <th>Sell1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friday</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Saturday</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Monday</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wednesday</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># let's add another column for 2nd sell</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Sell2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">128</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">231</span><span class="p">,</span> <span class="mi">901</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">41</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Day</th>
+      <th>Sell1</th>
+      <th>Sell2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friday</td>
+      <td>100</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Saturday</td>
+      <td>120</td>
+      <td>230</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Monday</td>
+      <td>400</td>
+      <td>231</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+      <td>901</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wednesday</td>
+      <td>29</td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+      <td>41</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h1 id="accessing-data">accessing data</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Sell1'</span><span class="p">]</span> 
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    100
+1    120
+2    310
+3    400
+4     90
+5     29
+6     30
+Name: Sell1, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Day'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0       Friday
+1     Saturday
+2       Sunday
+3       Monday
+4      Tuesday
+5    Wednesday
+6     Thursday
+Name: Day, dtype: object
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Sell2'</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    128
+1    230
+2    120
+3    231
+Name: Sell2, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Day'</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6     Thursday
+5    Wednesday
+4      Tuesday
+3       Monday
+2       Sunday
+1     Saturday
+0       Friday
+Name: Day, dtype: object
+</code></pre></div></div>
+
+<h1 id="manipulating-data">Manipulating Data</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'Total_Sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">flower_sell</span><span class="p">[</span><span class="s">'Sell1'</span><span class="p">]</span> <span class="o">+</span> <span class="n">flower_sell</span><span class="p">[</span><span class="s">'Sell2'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Day</th>
+      <th>Sell1</th>
+      <th>Sell2</th>
+      <th>Total_Sell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friday</td>
+      <td>100</td>
+      <td>128</td>
+      <td>228</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Saturday</td>
+      <td>120</td>
+      <td>230</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+      <td>120</td>
+      <td>430</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Monday</td>
+      <td>400</td>
+      <td>231</td>
+      <td>631</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+      <td>901</td>
+      <td>991</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wednesday</td>
+      <td>29</td>
+      <td>140</td>
+      <td>169</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+      <td>41</td>
+      <td>71</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Now we can add another column as average sell</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="p">[</span><span class="s">'average_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">flower_sell</span><span class="p">[</span><span class="s">'Total_Sell'</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Day</th>
+      <th>Sell1</th>
+      <th>Sell2</th>
+      <th>Total_Sell</th>
+      <th>average_sell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Friday</td>
+      <td>100</td>
+      <td>128</td>
+      <td>228</td>
+      <td>114.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Saturday</td>
+      <td>120</td>
+      <td>230</td>
+      <td>350</td>
+      <td>175.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+      <td>120</td>
+      <td>430</td>
+      <td>215.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Monday</td>
+      <td>400</td>
+      <td>231</td>
+      <td>631</td>
+      <td>315.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+      <td>901</td>
+      <td>991</td>
+      <td>495.5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wednesday</td>
+      <td>29</td>
+      <td>140</td>
+      <td>169</td>
+      <td>84.5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+      <td>41</td>
+      <td>71</td>
+      <td>35.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Let's save this file</span>
+<span class="n">flower_sell</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'mysell'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s">'False'</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="s">'Small Business'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="indexes">Indexes</h1>
+
+<p>Both Series and DataFrame objects also define an index property that assigns an identifier value to each Series item or DataFrame row.</p>
+
+<p>By default, at construction, pandas assigns index values that reflect the ordering of the source data. Once created, the index values are stable; that is, they do not change when data is reordered.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="o">.</span><span class="n">index</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RangeIndex(start=0, stop=7, step=1)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flower_sell</span><span class="o">.</span><span class="n">reindex</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Day</th>
+      <th>Sell1</th>
+      <th>Sell2</th>
+      <th>Total_Sell</th>
+      <th>average_sell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>Sunday</td>
+      <td>310</td>
+      <td>120</td>
+      <td>430</td>
+      <td>215.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Thursday</td>
+      <td>30</td>
+      <td>41</td>
+      <td>71</td>
+      <td>35.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tuesday</td>
+      <td>90</td>
+      <td>901</td>
+      <td>991</td>
+      <td>495.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h1 id="working-with-large-dataset">Working with large dataset</h1>
+<p>So far we have created a small dataframe and have done 
+some basic operation on it. Let’s work with large amount of
+data. You can downlaod any dataset with google dataset search.
+I have a csv file which I have donwloaded from www.kaggle.com
+We will look into this and will perform some operation in it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># First thing first, we need to read the file</span>
+<span class="c"># let's specify the location</span>
+
+<span class="n">location</span> <span class="o">=</span> <span class="s">r'C:\Users\ICT_H\Desktop\Machine Learning\File\train1.csv'</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">home_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to describe the data we can do the following command</span>
+<span class="n">home_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>LotArea</th>
+      <th>YearBuilt</th>
+      <th>TotalBsmtSF</th>
+      <th>BedroomAbvGr</th>
+      <th>YrSold</th>
+      <th>SalePrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>730.500000</td>
+      <td>10516.828082</td>
+      <td>1971.267808</td>
+      <td>1057.429452</td>
+      <td>2.866438</td>
+      <td>2007.815753</td>
+      <td>180921.195890</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>421.610009</td>
+      <td>9981.264932</td>
+      <td>30.202904</td>
+      <td>438.705324</td>
+      <td>0.815778</td>
+      <td>1.328095</td>
+      <td>79442.502883</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>1300.000000</td>
+      <td>1872.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2006.000000</td>
+      <td>34900.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>365.750000</td>
+      <td>7553.500000</td>
+      <td>1954.000000</td>
+      <td>795.750000</td>
+      <td>2.000000</td>
+      <td>2007.000000</td>
+      <td>129975.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>730.500000</td>
+      <td>9478.500000</td>
+      <td>1973.000000</td>
+      <td>991.500000</td>
+      <td>3.000000</td>
+      <td>2008.000000</td>
+      <td>163000.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1095.250000</td>
+      <td>11601.500000</td>
+      <td>2000.000000</td>
+      <td>1298.250000</td>
+      <td>3.000000</td>
+      <td>2009.000000</td>
+      <td>214000.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1460.000000</td>
+      <td>215245.000000</td>
+      <td>2010.000000</td>
+      <td>6110.000000</td>
+      <td>8.000000</td>
+      <td>2010.000000</td>
+      <td>755000.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to see only the first part of the dataset</span>
+<span class="n">home_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>LotArea</th>
+      <th>YearBuilt</th>
+      <th>TotalBsmtSF</th>
+      <th>BedroomAbvGr</th>
+      <th>YrSold</th>
+      <th>SaleType</th>
+      <th>SalePrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>8450</td>
+      <td>2003</td>
+      <td>856</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>208500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>9600</td>
+      <td>1976</td>
+      <td>1262</td>
+      <td>3</td>
+      <td>2007</td>
+      <td>WD</td>
+      <td>181500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>11250</td>
+      <td>2001</td>
+      <td>920</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>223500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>9550</td>
+      <td>1915</td>
+      <td>756</td>
+      <td>3</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>140000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>14260</td>
+      <td>2000</td>
+      <td>1145</td>
+      <td>4</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>250000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># You can specify how many row you want to display. By default it's 5</span>
+
+<span class="n">home_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c"># I want to display 10 raw</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>LotArea</th>
+      <th>YearBuilt</th>
+      <th>TotalBsmtSF</th>
+      <th>BedroomAbvGr</th>
+      <th>YrSold</th>
+      <th>SaleType</th>
+      <th>SalePrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>8450</td>
+      <td>2003</td>
+      <td>856</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>208500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>9600</td>
+      <td>1976</td>
+      <td>1262</td>
+      <td>3</td>
+      <td>2007</td>
+      <td>WD</td>
+      <td>181500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>11250</td>
+      <td>2001</td>
+      <td>920</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>223500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>9550</td>
+      <td>1915</td>
+      <td>756</td>
+      <td>3</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>140000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>14260</td>
+      <td>2000</td>
+      <td>1145</td>
+      <td>4</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>250000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>14115</td>
+      <td>1993</td>
+      <td>796</td>
+      <td>1</td>
+      <td>2009</td>
+      <td>WD</td>
+      <td>143000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>10084</td>
+      <td>2004</td>
+      <td>1686</td>
+      <td>3</td>
+      <td>2007</td>
+      <td>WD</td>
+      <td>307000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>10382</td>
+      <td>1973</td>
+      <td>1107</td>
+      <td>3</td>
+      <td>2009</td>
+      <td>WD</td>
+      <td>200000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>6120</td>
+      <td>1931</td>
+      <td>952</td>
+      <td>2</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>129900</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>7420</td>
+      <td>1939</td>
+      <td>991</td>
+      <td>2</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>118000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># how about to look at the end of our dataset. We can do so by following</span>
+
+<span class="n">home_data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>LotArea</th>
+      <th>YearBuilt</th>
+      <th>TotalBsmtSF</th>
+      <th>BedroomAbvGr</th>
+      <th>YrSold</th>
+      <th>SaleType</th>
+      <th>SalePrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1455</th>
+      <td>1456</td>
+      <td>7917</td>
+      <td>1999</td>
+      <td>953</td>
+      <td>3</td>
+      <td>2007</td>
+      <td>WD</td>
+      <td>175000</td>
+    </tr>
+    <tr>
+      <th>1456</th>
+      <td>1457</td>
+      <td>13175</td>
+      <td>1978</td>
+      <td>1542</td>
+      <td>3</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>210000</td>
+    </tr>
+    <tr>
+      <th>1457</th>
+      <td>1458</td>
+      <td>9042</td>
+      <td>1941</td>
+      <td>1152</td>
+      <td>4</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>266500</td>
+    </tr>
+    <tr>
+      <th>1458</th>
+      <td>1459</td>
+      <td>9717</td>
+      <td>1950</td>
+      <td>1078</td>
+      <td>2</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>142125</td>
+    </tr>
+    <tr>
+      <th>1459</th>
+      <td>1460</td>
+      <td>9937</td>
+      <td>1965</td>
+      <td>1256</td>
+      <td>3</td>
+      <td>2008</td>
+      <td>WD</td>
+      <td>147500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># we can visualize particular column as well</span>
+
+<span class="n">home_data</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s">'SalePrice'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/pandas/output_40_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">saleprice</span> <span class="o">=</span> <span class="n">home_data</span><span class="p">[</span><span class="s">'SalePrice'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>NumPy is a popular toolkit for scientific computing. pandas Series can be used as arguments to most NumPy functions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">saleprice</span><span class="p">)</span> <span class="c"># to get the logarithmic value of salaprice</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0       12.247694
+1       12.109011
+2       12.317167
+3       11.849398
+4       12.429216
+5       11.870600
+6       12.634603
+7       12.206073
+8       11.774520
+9       11.678440
+10      11.771436
+11      12.751300
+12      11.877569
+13      12.540758
+14      11.964001
+15      11.790557
+16      11.911702
+17      11.407565
+18      11.976659
+19      11.842229
+20      12.692503
+21      11.845103
+22      12.345835
+23      11.774520
+24      11.944708
+25      12.454104
+26      11.811547
+27      12.631340
+28      12.242887
+29      11.134589
+          ...    
+1430    12.165980
+1431    11.875831
+1432    11.074421
+1433    12.136187
+1434    11.982929
+1435    12.066811
+1436    11.699405
+1437    12.885671
+1438    11.916389
+1439    12.190959
+1440    12.160029
+1441    11.913713
+1442    12.644328
+1443    11.703546
+1444    12.098487
+1445    11.767568
+1446    11.969717
+1447    12.388394
+1448    11.626254
+1449    11.429544
+1450    11.820410
+1451    12.567551
+1452    11.884489
+1453    11.344507
+1454    12.128111
+1455    12.072541
+1456    12.254863
+1457    12.493130
+1458    11.864462
+1459    11.901583
+Name: SalePrice, Length: 1460, dtype: float64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">saleprice</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="mi">100000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0        True
+1        True
+2        True
+3        True
+4        True
+5        True
+6        True
+7        True
+8        True
+9        True
+10       True
+11       True
+12       True
+13       True
+14       True
+15       True
+16       True
+17      False
+18       True
+19       True
+20       True
+21       True
+22       True
+23       True
+24       True
+25       True
+26       True
+27       True
+28       True
+29      False
+        ...  
+1430     True
+1431     True
+1432    False
+1433     True
+1434     True
+1435     True
+1436     True
+1437     True
+1438     True
+1439     True
+1440     True
+1441     True
+1442     True
+1443     True
+1444     True
+1445     True
+1446     True
+1447     True
+1448     True
+1449    False
+1450     True
+1451     True
+1452     True
+1453    False
+1454     True
+1455     True
+1456     True
+1457     True
+1458     True
+1459     True
+Name: SalePrice, Length: 1460, dtype: bool
+</code></pre></div></div>
+
+<h1 id="dealing-with-missing-data">Dealing with missing data</h1>
+<p>Let’s create a pandas dataframe with missing data</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'d'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">price</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">missing_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'Name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s">'Price'</span><span class="p">:</span> <span class="n">price</span><span class="p">})</span> 
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">missing_data</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>b</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>d</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>e</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>f</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">missing_data</span><span class="p">[</span><span class="s">'Price'</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    False
+1    False
+2    False
+3     True
+4     True
+5     True
+Name: Price, dtype: bool
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># we can fill missing values with: fillna() method</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">missing_data</span><span class="p">[</span><span class="s">'Price'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c"># to fill with 0</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    10.0
+1    20.0
+2    15.0
+3     0.0
+4     0.0
+5     0.0
+Name: Price, dtype: float64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">missing_data</span><span class="p">[</span><span class="s">'Price'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s">'missing'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0         10
+1         20
+2         15
+3    missing
+4    missing
+5    missing
+Name: Price, dtype: object
+</code></pre></div></div>
+
+<p>We can’t build model with missing value. There are several ways
+to deal with missing value while building model. I will discuss about 
+it in my future post. 
+If you want to learn more about pandas: visit: https://pandas.pydata.org/pandas-docs/stable/cookbook.html#missing-data</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#datascience" class="page__taxonomy-item" rel="tag">datascience</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#pandas" class="page__taxonomy-item" rel="tag">pandas</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-12-30T00:00:00+08:00">December 30, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Pandas+Dataframe%20http%3A%2F%2Flocalhost%3A4000%2FPandas%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FPandas%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FPandas%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FPandas%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/NetworkX/" class="pagination--pager" title="NetworkX - Exploring Graph
+">Previous</a>
+    
+    
+      <a href="/Pyplot/" class="pagination--pager" title="Pyplot - Data Visualization
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Pandas/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+        
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/folium/map.PNG"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Visualizing-Malaysia-Public-University-Geo-data-Using-Folium/" rel="permalink">Analyzing Geo-data Using Folium
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  6 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">The goals of this project are : - Gather data specially [geo_location] of Malaysia public universities. - Use pandas to store data - Wrangling collected data...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/logisticr/output_50_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Logistic-Regression-with-a-Neural-Network-Mindset/" rel="permalink">Logistic Regression with a Neural Network Mindset
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  28 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This post demonstrates how to classify images using logistic regression from scratch. We will learn to:** - Build the general architecture of a learning algo...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/regression/output_23_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Linear-Regression-from-Scratch/" rel="permalink">Linear Regression from Scratch
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this post I have demonstrated how to generate data and build single linear regression as well as multiple linear regression model by using numpy, pyplot, ...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/pyplot/output_14_0.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Pyplot/" rel="permalink">Pyplot - Data Visualization
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">matplotlib.pyplot is a collection of command style functions that make matplotlib work like MATLAB. Each pyplot function makes some change to a figure: e.g.,...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>

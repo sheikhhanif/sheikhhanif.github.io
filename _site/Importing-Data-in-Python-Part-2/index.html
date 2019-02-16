@@ -1,0 +1,996 @@
+<!doctype html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Import Different Types of File in Python for Analysis - Part 2 - Sheikh Hanif</title>
+<meta name="description" content="This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web), api and so on and process these data for analyzing. You will learn about - Importing flat file, such as text file from web - Parsing HTML file and process HTML with Beautiful Soup package - Import data from web api - twitter api">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Sheikh Hanif">
+<meta property="og:title" content="Import Different Types of File in Python for Analysis - Part 2">
+<meta property="og:url" content="http://localhost:4000/Importing-Data-in-Python-Part-2/">
+
+
+  <meta property="og:description" content="This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web), api and so on and process these data for analyzing. You will learn about - Importing flat file, such as text file from web - Parsing HTML file and process HTML with Beautiful Soup package - Import data from web api - twitter api">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/import2/logo.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-01-21T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Importing-Data-in-Python-Part-2/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sheikh Hanif",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="wUEM5ESsba1PFb5GUnJKlTmwAKBy_O76lOJ71GUOWwc" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sheikh Hanif Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav"><a href="/"><img class="site-masthead" src="/assets/images/logo.png" alt="Sheikh Hanif" /></a><ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li><li class="masthead__menu-item">
+              <a href="/python/" >Python</a>
+            </li><li class="masthead__menu-item">
+              <a href="/project/" >Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio.jpg" alt="Sheikh Hanif" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Sheikh Hanif</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Kuala Lumpur, MY</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:sheikhhanifhossain@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Import Different Types of File in Python for Analysis - Part 2">
+    <meta itemprop="description" content="This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web), api and so on and process these data for analyzing. You will learn about - Importing flat file, such as text file from web - Parsing HTML file and process HTML with Beautiful Soup package - Import data from web api - twitter api">
+    <meta itemprop="datePublished" content="January 21, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Import Different Types of File in Python for Analysis - Part 2
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>In my previous tutorial I talked about how to import various type of file and work with it in Python when your file is in your local machine. 
+This tutorial is the continuation of the previous tutorial but here I will be showing how import data from the www ( world wide web),
+api and so on and process these data for analyzing. You will learn about</p>
+<ul>
+  <li>Importing flat file, such as text file from web</li>
+  <li>Parsing HTML file and process HTML with Beautiful Soup package</li>
+  <li>Import data from web api - twitter api</li>
+</ul>
+
+<h3 id="importing-necessary-module">Importing necessary module</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span><span class="p">,</span> <span class="n">urlopen</span><span class="p">,</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</code></pre></div></div>
+
+<h3 id="importing-flat-files-from-internet">Importing flat files from internet</h3>
+<p>To import flat data such as text or csv file we from web, firstly we need to specify the url, then we need to pass the  url alone with the name of the file we want to save asto 
+Python urlretrieve() function. It will save the file in our local machine. From there we can easily read the file the methods we 
+learned earlier tutorial.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># assign url of file</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://s3.amazonaws.com/assets.datacamp.com/production/course_1606/datasets/winequality-red.csv'</span>
+
+<span class="c"># saving file in local machine</span>
+<span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s">'imported_data/wine_red.csv'</span><span class="p">)</span>
+
+<span class="c"># reading imported data</span>
+<span class="n">im_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'imported_data/wine_red.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span> <span class="s">';'</span><span class="p">)</span>
+
+<span class="c"># printing few line</span>
+<span class="n">im_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fixed acidity</th>
+      <th>volatile acidity</th>
+      <th>citric acid</th>
+      <th>residual sugar</th>
+      <th>chlorides</th>
+      <th>free sulfur dioxide</th>
+      <th>total sulfur dioxide</th>
+      <th>density</th>
+      <th>pH</th>
+      <th>sulphates</th>
+      <th>alcohol</th>
+      <th>quality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7.4</td>
+      <td>0.70</td>
+      <td>0.00</td>
+      <td>1.9</td>
+      <td>0.076</td>
+      <td>11.0</td>
+      <td>34.0</td>
+      <td>0.9978</td>
+      <td>3.51</td>
+      <td>0.56</td>
+      <td>9.4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.8</td>
+      <td>0.88</td>
+      <td>0.00</td>
+      <td>2.6</td>
+      <td>0.098</td>
+      <td>25.0</td>
+      <td>67.0</td>
+      <td>0.9968</td>
+      <td>3.20</td>
+      <td>0.68</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7.8</td>
+      <td>0.76</td>
+      <td>0.04</td>
+      <td>2.3</td>
+      <td>0.092</td>
+      <td>15.0</td>
+      <td>54.0</td>
+      <td>0.9970</td>
+      <td>3.26</td>
+      <td>0.65</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># importing data without saving locally</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">';'</span><span class="p">)</span>
+
+<span class="c"># plotting co-rel of data</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlGn'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1e565dd8eb8&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/images/import2/output_5_1.png" alt="png" /></p>
+
+<h3 id="importing-non-flat-file---excelfile">importing non-flat file - Excelfile</h3>
+<p>We can import excelfile easily with pandas read_excel by passing the url and sheetname = “None”. We can analyze it as we wish.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Assigning url of file</span>
+<span class="n">ex_url</span> <span class="o">=</span> <span class="s">'http://s3.amazonaws.com/assets.datacamp.com/course/importing_data_into_r/latitude.xls'</span>
+<span class="c"># Reading data</span>
+<span class="n">ex_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">ex_url</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="c"># printing sheetnames</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Sheetnames</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">ex_data</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="c"># printing first few line of 2nd sheet</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ex_data</span><span class="p">[</span><span class="s">'1900'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sheetnames
+ odict_keys(['1700', '1900']) 
+
+                 country       1900
+0            Afghanistan  34.565000
+1  Akrotiri and Dhekelia  34.616667
+2                Albania  41.312000
+</code></pre></div></div>
+
+<h3 id="performing-http-request-using-python">performing http request using python</h3>
+<p>We can perform http reques to any web address using Python ‘requests’ package. We can just need to pass the url inside requests.get
+method and hold the object in variable. Later on we can extract information from that object using some fancy methods as follows.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c"># Specifying the url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://sheikhhanif.github.io/project/'</span>
+
+<span class="c"># send request and catch response</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c"># Extract the response</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span>
+
+<span class="c"># printing data</span>
+<span class="k">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span> <span class="na">class=</span><span class="s">"no-js"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+
+   
+<span class="nt">&lt;meta</span> <span class="na">property=</span><span class="s">"og:title"</span> <span class="na">content=</span><span class="s">"Sheikh Hanif"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">property=</span><span class="s">"og:url"</span> <span class="na">content=</span><span class="s">"https://sheikhhanif.github.io/project/"</span><span class="nt">&gt;</span>
+
+   
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">"layout--archive"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>Doing projects are always exciting. That is the place where we get chance to implement the knowledge we earned. Throughout my Computer Science degree, I have done many projects. All of them I didn’t preserved. Here is the list of projects I have done outside of my academic requirement to check out my own understading over the topics I learned.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"page__footer-copyright"</span><span class="nt">&gt;</span><span class="ni">&amp;copy;</span> 2019 Sheikh Hanif<span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;/footer&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    
+  
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="parsing-html-with-beautifulsoup">Parsing HTML with BeautifulSoup</h3>
+<p>In this part we will learn how to use beautifulsoup package to parse, prettify and extract information from HTML. This is quite handy while working with web data. It can process data efficiently. To learn more about ‘beautifulsoup’ refer to the official 
+documentation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># specifying url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://sheikhhanif.github.io/project/'</span>
+
+<span class="c"># send request and catch response</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c"># Extracting html</span>
+<span class="n">html_doc</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span>
+
+<span class="c"># creating beautifulsoup object</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_doc</span><span class="p">)</span>
+
+<span class="c"># prettifying soup</span>
+<span class="n">pretty_soup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">prettify</span><span class="p">()</span>
+
+<span class="c"># printing the title of the url(soup)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'url title: '</span><span class="p">,</span> <span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="p">,</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="c"># printing text of it </span>
+<span class="k">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url title:  &lt;title&gt;Sheikh Hanif&lt;/title&gt; 
+
+
+Doing projects are always exciting. That is the place where we get chance to implement the knowledge we earned. Throughout my Computer Science degree, I have done many projects. All of them I didn’t preserved. Here is the list of projects I have done outside of my academic requirement to check out my own understading over the topics I learned.
+Building Scikit-Learn Linear Model: Elasticnet
+Analyzing data and building a model using scikit learn. I used scikit learn elasticnet linear model and grid search cross validation to get the best result out of my data.
+Go to Repository      View Post
+Online Encryption Decryption System.
+A onlie ecryption decryption system using JavaScript where you can encrypt and decrypt your file.
+Go to Repository      View System
+
+Follow:
+ Linkedin
+ GitHub
+ Feed
+
+
+© 2019 Sheikh Hanif
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># getting hyperlink</span>
+<span class="n">a_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">'a'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">a_tags</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'href'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+/data-science/
+/project/
+/about/
+mailto:sheikhhanifhossain@gmail.com
+https://github.com/sheikhhanif
+https://linkedin.com/in/sheikhhanif
+https://github.com/sheikhhanif/ElasticNet-Scikit-Learn.git
+https://sheikhhanif.github.io/Scikit-Learn-Linear-Model-Elasticnet/
+https://github.com/sheikhhanif/encryption.git
+https://sheikhhanif.github.io/encryption/
+https://linkedin.com/in/sheikhhanif
+https://github.com/sheikhhanif
+/feed.xml
+</code></pre></div></div>
+
+<h3 id="extracting-data-from-api">Extracting data from API</h3>
+<p>Very often we need to use API to collect data. Such as facebook api, twitter api and so on. Each of these api has it’s own rule and regulation and documentaion for usage. Here I am showing extracting data from ‘omdb’ and twitter api. Please refer to the official documentation to use twitter api.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Import package</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c"># Assign URL to variable: url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'http://www.omdbapi.com/?apikey=72bc447a&amp;t=social+network'</span>
+
+<span class="c"># Package the request, send the request and catch the response: r</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c"># Decode the JSON data into a dictionary: json_data</span>
+<span class="n">json_data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c"># Print each key-value pair in json_data</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">json_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="s">': '</span><span class="p">,</span> <span class="n">json_data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Title:  The Social Network
+Year:  2010
+Rated:  PG-13
+Released:  01 Oct 2010
+Runtime:  120 min
+Genre:  Biography, Drama
+Director:  David Fincher
+Writer:  Aaron Sorkin (screenplay), Ben Mezrich (book)
+Actors:  Jesse Eisenberg, Rooney Mara, Bryan Barter, Dustin Fitzsimons
+Plot:  Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, but is later sued by two brothers who claimed he stole their idea, and the co-founder who was later squeezed out of the business.
+Language:  English, French
+Country:  USA
+Awards:  Won 3 Oscars. Another 165 wins &amp; 168 nominations.
+Poster:  https://m.media-amazon.com/images/M/MV5BOGUyZDUxZjEtMmIzMC00MzlmLTg4MGItZWJmMzBhZjE0Mjc1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg
+Ratings:  [{'Source': 'Internet Movie Database', 'Value': '7.7/10'}, {'Source': 'Rotten Tomatoes', 'Value': '95%'}, {'Source': 'Metacritic', 'Value': '95/100'}]
+Metascore:  95
+imdbRating:  7.7
+imdbVotes:  556,761
+imdbID:  tt1285016
+Type:  movie
+DVD:  11 Jan 2011
+BoxOffice:  $96,400,000
+Production:  Columbia Pictures
+Website:  http://www.thesocialnetwork-movie.com/
+Response:  True
+</code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#data-science" class="page__taxonomy-item" rel="tag">data science</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#python" class="page__taxonomy-item" rel="tag">python</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-21T00:00:00+08:00">January 21, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Import+Different+Types+of+File+in+Python+for+Analysis+-+Part+2%20http%3A%2F%2Flocalhost%3A4000%2FImporting-Data-in-Python-Part-2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FImporting-Data-in-Python-Part-2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FImporting-Data-in-Python-Part-2%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FImporting-Data-in-Python-Part-2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Scikit-Learn-Linear-Model-Elasticnet/" class="pagination--pager" title="Building Scikit-Learn Linear Model: Elasticnet
+">Previous</a>
+    
+    
+      <a href="/Python-Data-Science-Basic/" class="pagination--pager" title="Python for Data Science - Part 1
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section class="fb-comments" data-href="http://localhost:4000/Importing-Data-in-Python-Part-2/" data-mobile="true" data-num-posts="5" data-width="100%" data-colorscheme="light"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+
+  
+  
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+            <div class="page__related">
+              
+                <h4 class="page__related-title">You may also enjoy</h4>
+              
+              <div class="grid__wrapper">
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/python/logo.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Python-Data-Science-Basic/" rel="permalink">Python for Data Science - Part 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Along the way you will be learning about following topics. - How to print, comment - Python String - Python list - Python packages - Numpy
+</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+    
+        
+    
+        
+    
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/import1/output_13_0.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Importing-Data-in-Python-Part-1/" rel="permalink">Import Different Types of File in Python for Analysis - Part 1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Typically, data scientists will work with enormous types of file. Having the knowledge of these types of file and importing them properly will speed up the p...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/ptool2/output_29_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Python-Data-Science-Toolbox-Part-2/" rel="permalink">Python Data Science Toolbox - Part2
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this post your will be exposed to the following Python topic, which will be extremely helpful to build career as a Python developer or data scientist. Thi...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+    
+    
+        
+          
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+<div class="mycard">
+ 
+<img src=
+          
+            "/assets/images/interpython/output_9_1.png"
+          
+          alt="datascience">
+         
+
+  <div class="so">
+   <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Intermediate-Python-for-Data-Science/" rel="permalink">Intermediate Python for Data Science
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This notebook contains most of the essential elements of Python skill for data science. While you go through it, you will learn about - how to use matplotlib...</p>
+  
+  </div>
+</div>
+
+  </article>
+</div>
+
+          
+          
+    
+  
+      </div>
+    </div>
+  
+
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+    <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    </form>
+    <div id="results" class="results">
+        <gcse:searchresults-only></gcse:searchresults-only>    
+    </div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+          <li><a href="https://linkedin.com/in/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+        
+          <li><a href="https://github.com/sheikhhanif" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Sheikh Hanif</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+<script>
+  (function () {
+    var cx = '008072173451302764783:oel8ke2p0x0';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+  function googleCustomSearchExecute() {
+    var input = document.getElementById('cse-search-input-box-id');
+    var element = google.search.cse.element.getElement('searchresults-only0');
+    if (input.value == '') {
+      element.clearAllResults();
+    } else {
+      element.execute(input.value);
+    }
+    return false;
+  }
+
+  
+</script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+    
+
+  </body>
+</html>
