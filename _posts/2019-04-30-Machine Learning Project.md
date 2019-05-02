@@ -2,7 +2,7 @@
 title: "List of Machine Learning Projects"
 date: 2019-04-20
 header:
-  teaser: /assets/images/ml_logo.png
+  teaser: /assets/images/ml-logo.PNG
 tags: [project, mlproject]
 excerpt: "Here is the list of my Machine learning projects. Skills: Python, Keras,TensorFlow, Scikit-Learn, NumPy, Pandas, Machine Learning, Deep Learning"
 ---
