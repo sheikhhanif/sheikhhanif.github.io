@@ -2,9 +2,9 @@
 title: "List of Machine Learning Projects"
 date: 2019-04-20
 header:
-  teaser: /assets/images/pyplot/output_14_0.png
+  teaser: /assets/images/ml_logo.png
 tags: [project, mlproject]
-excerpt: "Here is the list of my Machine learning projects. Skills: Python, Keras, TensorFlow, Machine Learning, Deep Learning, Scikit-Learn"
+excerpt: "Here is the list of my Machine learning projects. Skills: Python, Keras,TensorFlow, Scikit-Learn, NumPy, Pandas, Machine Learning, Deep Learning"
 ---
 ### App Recommendation System
 A recommendation system based on customer reviews on Amazon App Store.
