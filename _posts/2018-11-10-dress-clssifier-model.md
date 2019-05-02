@@ -2,7 +2,7 @@
 title: "ML Project - Dress Classifier"
 
 date: 2018-12-30
-tags: [project, deep learning, image clssifier]
+tags: [datascience, deep learning, image clssifier]
 excerpt: "A simple project on dress classification with CNN, Keras. 2.0 Project Objectives
 - To observe students dress up among the IIUM community
 - To collect pictures of students

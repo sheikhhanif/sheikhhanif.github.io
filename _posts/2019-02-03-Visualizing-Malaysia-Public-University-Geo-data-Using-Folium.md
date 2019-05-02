@@ -3,7 +3,7 @@ title: "Analyzing Geo-data Using Folium"
 header:
   teaser: /assets/images/folium/map.PNG
 date: 2019-02-03
-tags: [datascience, folium, project]
+tags: [datascience, folium]
 excerpt: "The goals of this project are : 
 - Gather data specially [geo_location] of Malaysia public universities.
 - Use pandas to store data

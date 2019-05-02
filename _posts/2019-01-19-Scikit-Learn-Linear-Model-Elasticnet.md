@@ -3,7 +3,7 @@ title: "Building Scikit-Learn Linear Model: Elasticnet"
 header:
   teaser: /assets/images/elasticnet/output_14_1.png
 date: 2019-01-19
-tags: [project, scikit-learn, linear model]
+tags: [scikit-learn, linear model]
 excerpt: "In this notebook we will learn how to use scikit learn to build best 
 linear regressor model. We used gapminder dataset which is related to 
 population in different region and average life expectency. More about our 
