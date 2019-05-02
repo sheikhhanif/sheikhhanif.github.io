@@ -2,7 +2,7 @@
 title: "List of Natural Language Processing Projects"
 date: 2019-04-29
 header:
-  teaser: /assets/images/nlp_logo.png
+  teaser: /assets/images/nlp_logo.PNG
 tags: [project, mlproject]
 excerpt: "Here is the list of my NLP projects. Skills: Python, NLTK, Scikit-Learn, natural language processing, topic modeling, sentiment analysis"
 ---
