@@ -1,6 +1,6 @@
 ---
 title: "List of Machine Learning Projects"
-date: 
+date: 2019-04-30
 header:
   teaser: /assets/images/ml-logo.PNG
 tags: [project, mlproject]
