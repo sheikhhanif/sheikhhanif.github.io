@@ -1,6 +1,6 @@
 ---
 title: "List of Web Application Projects"
-date: 2019-04-29
+date: 2018-04-29
 header:
   teaser: /assets/images/web_logo.PNG
 tags: [project, mlproject]
