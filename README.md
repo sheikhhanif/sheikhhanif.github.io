@@ -1,3 +1,8 @@
-## Visit my blog and enjoy interesting articles on data science
+## Visit my blog and enjoy reading interesting articles on data science
 - https://sheikhhanif.github.io
+
+
+## Demo
+
+![demopage] (blog.png)
 
